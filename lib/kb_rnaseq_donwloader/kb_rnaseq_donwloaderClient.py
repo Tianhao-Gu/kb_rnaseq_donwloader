@@ -33,6 +33,42 @@ class kb_rnaseq_donwloader(object):
             trust_all_ssl_certificates=trust_all_ssl_certificates,
             auth_svc=auth_svc)
 
+    def export_rna_seq_alignment_as_zip(self, params, context=None):
+        """
+        :param params: instance of type "ExportParams" (input and output
+           structure functions for standard downloaders) -> structure:
+           parameter "input_ref" of String
+        :returns: instance of type "ExportOutput" -> structure: parameter
+           "shock_id" of String
+        """
+        return self._client.call_method(
+            'kb_rnaseq_donwloader.export_rna_seq_alignment_as_zip',
+            [params], self._service_ver, context)
+
+    def export_rna_seq_expression_as_zip(self, params, context=None):
+        """
+        :param params: instance of type "ExportParams" (input and output
+           structure functions for standard downloaders) -> structure:
+           parameter "input_ref" of String
+        :returns: instance of type "ExportOutput" -> structure: parameter
+           "shock_id" of String
+        """
+        return self._client.call_method(
+            'kb_rnaseq_donwloader.export_rna_seq_expression_as_zip',
+            [params], self._service_ver, context)
+
+    def export_rna_seq_differential_expression_as_zip(self, params, context=None):
+        """
+        :param params: instance of type "ExportParams" (input and output
+           structure functions for standard downloaders) -> structure:
+           parameter "input_ref" of String
+        :returns: instance of type "ExportOutput" -> structure: parameter
+           "shock_id" of String
+        """
+        return self._client.call_method(
+            'kb_rnaseq_donwloader.export_rna_seq_differential_expression_as_zip',
+            [params], self._service_ver, context)
+
     def status(self, context=None):
         return self._client.call_method('kb_rnaseq_donwloader.status',
                                         [], self._service_ver, context)
