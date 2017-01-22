@@ -17,7 +17,6 @@ from biokbase.workspace.client import Workspace as workspaceService
 from kb_rnaseq_donwloader.kb_rnaseq_donwloaderImpl import kb_rnaseq_donwloader
 from kb_rnaseq_donwloader.kb_rnaseq_donwloaderServer import MethodContext
 
-
 class kb_rnaseq_donwloaderTest(unittest.TestCase):
 
     @classmethod
@@ -71,15 +70,29 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
     def getContext(self):
         return self.__class__.ctx
 
-    # NOTE: According to Python unittest naming rules test method names should start from 'test'. # noqa
-    def test_your_method(self):
-        # Prepare test objects in workspace if needed using
-        # self.getWsClient().save_objects({'workspace': self.getWsName(),
-        #                                  'objects': []})
-        #
-        # Run your method by
-        # ret = self.getImpl().your_method(self.getContext(), parameters...)
-        #
-        # Check returned data with
-        # self.assertEqual(ret[...], ...) or other unittest methods
-        pass
+    def test_contructor(self):
+        ret = self.getImpl()
+        self.assertIsNotNone(ret.config)
+        self.assertIsNotNone(ret.config['SDK_CALLBACK_URL'])
+        self.assertIsNotNone(ret.config['KB_AUTH_TOKEN'])
+
+    def test_validate_upload_fastq_file_parameters(self):
+        invalidate_input_params = {
+            'input_ref': '2778/3/1'
+        }
+        del invalidate_input_params['input_ref']
+        with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
+            self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), invalidate_input_params)
+
+        with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
+            self.getImpl().export_rna_seq_expression_as_zip(self.getContext(), invalidate_input_params)
+
+        with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
+            self.getImpl().export_rna_seq_differential_expression_as_zip(self.getContext(), invalidate_input_params)
+
+    def test_export_rna_seq_alignment_as_zip(self):
+        params = {
+            'input_ref': '2778/3/1'
+        }
+        ret = self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), params)
+        self.assertTrue(ret[0].has_key('shock_id'))
