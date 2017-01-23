@@ -92,7 +92,21 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
 
     def test_export_rna_seq_alignment_as_zip(self):
         params = {
-            'input_ref': '2778/3/1'
+            'input_ref': '15963/11/1'
+        }
+        ret = self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), params)
+        self.assertTrue(ret[0].has_key('shock_id'))
+
+    def test_export_rna_seq_expression_as_zip(self):
+        params = {
+            'input_ref': '15963/16/2'
+        }
+        ret = self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), params)
+        self.assertTrue(ret[0].has_key('shock_id'))
+
+    def test_export_rna_seq_differential_expression_as_zip(self):
+        params = {
+            'input_ref': '15963/21/1'
         }
         ret = self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), params)
         self.assertTrue(ret[0].has_key('shock_id'))
