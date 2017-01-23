@@ -37,7 +37,7 @@ class RNASeqDownloaderUtils:
 
 		# Download RNASeq zip file
 		# RNASeq Alignemnt, Expression and DifferentialExpression has same object_data/handle_data structure
-		returnVal = self._download_rna_seq_zip(self, input_ref)
+		returnVal = self._download_rna_seq_zip(params.get('input_ref'))
 
 		return returnVal
 
