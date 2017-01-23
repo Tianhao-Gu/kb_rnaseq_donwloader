@@ -121,9 +121,9 @@ class RNASeqDownloaderUtils:
 			raise ValueError("Unexpected object format. Refer to DataFileUtil.get_objects definition\nobject_data:\n%s" % json.dumps(object_data, indent=1))
 
 		if handle is None:
-			raise ValueError("object_data does have Handle(file key)\nobject_data:\n%s" % json.dumps(object_data, indent=1))
+			raise ValueError("object_data does NOT have Handle(file key)\nobject_data:\n%s" % json.dumps(object_data, indent=1))
 		elif handle.get('hid') is None:
-			raise ValueError("Handle does have HandleId(hid key)\nhandle_data:\n%s" % json.dumps(handle, indent=1))
+			raise ValueError("Handle does have NOT HandleId(hid key)\nhandle_data:\n%s" % json.dumps(handle, indent=1))
 		else:
 			return handle
 
