@@ -2,13 +2,13 @@ module-name:
     kb_rnaseq_donwloader
 
 module-description:
-    A KBase module
+    RNASeq type object downloader
 
 service-language:
     python
 
 module-version:
-    0.0.1
+    0.1.0
 
 owners:
     [tgu2]
