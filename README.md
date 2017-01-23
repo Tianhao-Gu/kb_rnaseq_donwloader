@@ -3,4 +3,6 @@
 # kb_rnaseq_donwloader
 ---
 
-This is the basic readme for this module. Include any usage or deployment instructions and links to other documentation here.
+RNASeq type object downloader
+
+It currently supports downloading archive file (.zip) from RNASeqAlignment, RNASeqExpression and RNASeqDifferentialExpression type object
