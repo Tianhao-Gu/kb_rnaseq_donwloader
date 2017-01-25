@@ -83,6 +83,9 @@ class RNASeqDownloaderUtils:
 		handle_id = handle.get('hid')
 		original_zip_file_path = self._download_original_zip_file(handle_id, dstdir)
 
+		base = os.path.splitext(thisFile)[0]
+		os.rename(original_zip_file_path, base)
+
 		log ('---> loading %s to shock' % original_zip_file_path)
 		shock_id = self._upload_to_shock(original_zip_file_path)
 
