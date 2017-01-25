@@ -86,8 +86,8 @@ class RNASeqDownloaderUtils:
 		base = os.path.splitext(original_zip_file_path)[0]
 		os.rename(original_zip_file_path, base)
 
-		log ('---> loading %s to shock' % original_zip_file_path)
-		shock_id = self._upload_to_shock(original_zip_file_path)
+		log ('---> loading %s to shock' % base)
+		shock_id = self._upload_to_shock(base)
 
 		log('--->\nremoving folder: %s' % dstdir)
 		shutil.rmtree(dstdir)
