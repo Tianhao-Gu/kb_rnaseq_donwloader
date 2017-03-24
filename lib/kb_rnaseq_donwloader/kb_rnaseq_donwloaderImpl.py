@@ -21,9 +21,9 @@ class kb_rnaseq_donwloader:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "0.0.1"
-    GIT_URL = "git@github.com:Tianhao-Gu/kb_rnaseq_donwloader.git"
-    GIT_COMMIT_HASH = "ba0e84ea9993887a8aaf42b47e2619272f8254dd"
+    VERSION = "0.1.1"
+    GIT_URL = "https://github.com/Tianhao-Gu/kb_rnaseq_donwloader.git"
+    GIT_COMMIT_HASH = "f86e58c9a26e9c2a7f81cb0eee2c2eb9ec8ccac0"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
