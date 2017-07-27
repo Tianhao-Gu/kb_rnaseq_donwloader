@@ -33,7 +33,7 @@ class kb_rnaseq_donwloader(object):
             trust_all_ssl_certificates=trust_all_ssl_certificates,
             auth_svc=auth_svc)
 
-    def export_rna_seq_alignment_as_zip(self, params, context=None):
+    def export_rna_seq_alignment_as_bam(self, params, context=None):
         """
         :param params: instance of type "ExportParams" (input and output
            structure functions for standard downloaders) -> structure:
@@ -42,7 +42,31 @@ class kb_rnaseq_donwloader(object):
            "shock_id" of String
         """
         return self._client.call_method(
-            'kb_rnaseq_donwloader.export_rna_seq_alignment_as_zip',
+            'kb_rnaseq_donwloader.export_rna_seq_alignment_as_bam',
+            [params], self._service_ver, context)
+
+    def export_rna_seq_alignment_as_sam(self, params, context=None):
+        """
+        :param params: instance of type "ExportParams" (input and output
+           structure functions for standard downloaders) -> structure:
+           parameter "input_ref" of String
+        :returns: instance of type "ExportOutput" -> structure: parameter
+           "shock_id" of String
+        """
+        return self._client.call_method(
+            'kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam',
+            [params], self._service_ver, context)
+
+    def export_rna_seq_alignment_as_bai(self, params, context=None):
+        """
+        :param params: instance of type "ExportParams" (input and output
+           structure functions for standard downloaders) -> structure:
+           parameter "input_ref" of String
+        :returns: instance of type "ExportOutput" -> structure: parameter
+           "shock_id" of String
+        """
+        return self._client.call_method(
+            'kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai',
             [params], self._service_ver, context)
 
     def export_rna_seq_expression_as_zip(self, params, context=None):

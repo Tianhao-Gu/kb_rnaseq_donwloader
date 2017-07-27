@@ -20,7 +20,7 @@ from kb_rnaseq_donwloader.authclient import KBaseAuth as _KBaseAuth
 
 DEPLOY = 'KB_DEPLOYMENT_CONFIG'
 SERVICE = 'KB_SERVICE_NAME'
-AUTH = 'auth-server-url'
+AUTH = 'auth-service-url'
 
 # Note that the error fields do not match the 2.0 JSONRPC spec
 
@@ -109,7 +109,11 @@ class JSONRPCServiceCustom(JSONRPCService):
             # Exception was raised inside the method.
             newerr = JSONServerError()
             newerr.trace = traceback.format_exc()
-            newerr.data = e.message
+            if isinstance(e.message, basestring):
+                newerr.data = e.message
+            else:
+                # Some exceptions embed other exceptions as the message
+                newerr.data = repr(e.message)
             raise newerr
         return result
 
@@ -329,18 +333,26 @@ class Application(object):
         self.serverlog.set_log_level(6)
         self.rpc_service = JSONRPCServiceCustom()
         self.method_authentication = dict()
-        self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_alignment_as_zip,
-                             name='kb_rnaseq_donwloader.export_rna_seq_alignment_as_zip',
+        self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_alignment_as_bam,
+                             name='kb_rnaseq_donwloader.export_rna_seq_alignment_as_bam',
                              types=[dict])
-        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_alignment_as_zip'] = 'required' # noqa
+        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_alignment_as_bam'] = 'required'  # noqa
+        self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam,
+                             name='kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam',
+                             types=[dict])
+        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam'] = 'required'  # noqa
+        self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai,
+                             name='kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai',
+                             types=[dict])
+        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai'] = 'required'  # noqa
         self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_expression_as_zip,
                              name='kb_rnaseq_donwloader.export_rna_seq_expression_as_zip',
                              types=[dict])
-        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_expression_as_zip'] = 'required' # noqa
+        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_expression_as_zip'] = 'required'  # noqa
         self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_differential_expression_as_zip,
                              name='kb_rnaseq_donwloader.export_rna_seq_differential_expression_as_zip',
                              types=[dict])
-        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_differential_expression_as_zip'] = 'required' # noqa
+        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_differential_expression_as_zip'] = 'required'  # noqa
         self.rpc_service.add(impl_kb_rnaseq_donwloader.status,
                              name='kb_rnaseq_donwloader.status',
                              types=[dict])
