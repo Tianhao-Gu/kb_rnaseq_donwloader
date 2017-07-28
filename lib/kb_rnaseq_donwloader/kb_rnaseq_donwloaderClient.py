@@ -57,18 +57,6 @@ class kb_rnaseq_donwloader(object):
             'kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam',
             [params], self._service_ver, context)
 
-    def export_rna_seq_alignment_as_bai(self, params, context=None):
-        """
-        :param params: instance of type "ExportParams" (input and output
-           structure functions for standard downloaders) -> structure:
-           parameter "input_ref" of String
-        :returns: instance of type "ExportOutput" -> structure: parameter
-           "shock_id" of String
-        """
-        return self._client.call_method(
-            'kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai',
-            [params], self._service_ver, context)
-
     def export_rna_seq_expression_as_zip(self, params, context=None):
         """
         :param params: instance of type "ExportParams" (input and output

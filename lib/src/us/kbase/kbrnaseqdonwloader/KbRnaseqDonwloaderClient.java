@@ -197,23 +197,6 @@ public class KbRnaseqDonwloaderClient {
     }
 
     /**
-     * <p>Original spec-file function name: export_rna_seq_alignment_as_bai</p>
-     * <pre>
-     * </pre>
-     * @param   params   instance of type {@link us.kbase.kbrnaseqdonwloader.ExportParams ExportParams}
-     * @return   parameter "output" of type {@link us.kbase.kbrnaseqdonwloader.ExportOutput ExportOutput}
-     * @throws IOException if an IO exception occurs
-     * @throws JsonClientException if a JSON RPC exception occurs
-     */
-    public ExportOutput exportRnaSeqAlignmentAsBai(ExportParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
-        List<Object> args = new ArrayList<Object>();
-        args.add(params);
-        TypeReference<List<ExportOutput>> retType = new TypeReference<List<ExportOutput>>() {};
-        List<ExportOutput> res = caller.jsonrpcCall("kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai", args, retType, true, true, jsonRpcContext, this.serviceVersion);
-        return res.get(0);
-    }
-
-    /**
      * <p>Original spec-file function name: export_rna_seq_expression_as_zip</p>
      * <pre>
      * </pre>

@@ -23,7 +23,7 @@ class kb_rnaseq_donwloader:
     ######################################### noqa
     VERSION = "1.0.1"
     GIT_URL = "https://github.com/Tianhao-Gu/kb_rnaseq_donwloader.git"
-    GIT_COMMIT_HASH = "0cfc3d22372981d50f43646ae6323014ff357318"
+    GIT_COMMIT_HASH = "60853405bd1ef038ed0b6d0ec0ba492dea318c63"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -89,33 +89,6 @@ class kb_rnaseq_donwloader:
         # At some point might do deeper type checking...
         if not isinstance(output, dict):
             raise ValueError('Method export_rna_seq_alignment_as_sam return value ' +
-                             'output is not type dict as required.')
-        # return the results
-        return [output]
-
-    def export_rna_seq_alignment_as_bai(self, ctx, params):
-        """
-        :param params: instance of type "ExportParams" (input and output
-           structure functions for standard downloaders) -> structure:
-           parameter "input_ref" of String
-        :returns: instance of type "ExportOutput" -> structure: parameter
-           "shock_id" of String
-        """
-        # ctx is the context object
-        # return variables are: output
-        #BEGIN export_rna_seq_alignment_as_bai
-        print '--->\nRunning kb_rnaseq_downloader.export_rna_seq_alignment_as_zip\nparams:'
-        params['rna_seq_type'] = 'RNASeqAlignment'
-        params['download_file_type'] = 'bai'
-        print json.dumps(params, indent=1)
-
-        rna_seq_downloader = RNASeqDownloaderUtils(self.config)
-        output = rna_seq_downloader.download_RNASeq_Alignment(params)
-        #END export_rna_seq_alignment_as_bai
-
-        # At some point might do deeper type checking...
-        if not isinstance(output, dict):
-            raise ValueError('Method export_rna_seq_alignment_as_bai return value ' +
                              'output is not type dict as required.')
         # return the results
         return [output]
