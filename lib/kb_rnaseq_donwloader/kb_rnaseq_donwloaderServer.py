@@ -341,10 +341,6 @@ class Application(object):
                              name='kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam',
                              types=[dict])
         self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_alignment_as_sam'] = 'required'  # noqa
-        self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai,
-                             name='kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai',
-                             types=[dict])
-        self.method_authentication['kb_rnaseq_donwloader.export_rna_seq_alignment_as_bai'] = 'required'  # noqa
         self.rpc_service.add(impl_kb_rnaseq_donwloader.export_rna_seq_expression_as_zip,
                              name='kb_rnaseq_donwloader.export_rna_seq_expression_as_zip',
                              types=[dict])

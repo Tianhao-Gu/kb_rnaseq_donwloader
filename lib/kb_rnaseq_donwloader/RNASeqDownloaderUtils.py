@@ -1,8 +1,6 @@
 import os
 import json
 import shutil
-import zipfile
-import re
 
 from DataFileUtil.DataFileUtilClient import DataFileUtil
 from ReadsAlignmentUtils.ReadsAlignmentUtilsClient import ReadsAlignmentUtils
@@ -71,23 +69,14 @@ class RNASeqDownloaderUtils:
 
         download_file_type = params.get('download_file_type')
         if download_file_type == 'bam':
-            destination_dir = self.rau.download_alignment({'source_ref': input_ref})['destination_dir']
-            bam_file_path = os.path.join(destination_dir, 'accepted_hits.bam')
-            shock_id = self._upload_to_shock(bam_file_path)
-        elif download_file_type == 'sam':
-            destination_dir = self.rau.download_alignment({'source_ref': input_ref,
-                                                           'downloadSAM': True})['destination_dir']
-            result_files = os.listdir(destination_dir)
-            sam_file_name = [x for x in result_files if re.match('.*\.sam', x)][0]
-            sam_file_path = os.path.join(destination_dir, sam_file_name)
-            shock_id = self._upload_to_shock(sam_file_path)
-        elif download_file_type == 'bai':
             destination_dir = self.rau.download_alignment({'source_ref': input_ref,
                                                            'downloadBAI': True})['destination_dir']
-            result_files = os.listdir(destination_dir)
-            bai_file_name = [x for x in result_files if re.match('.*\.bai', x)][0]
-            bai_file_path = os.path.join(destination_dir, bai_file_name)
-            shock_id = self._upload_to_shock(bai_file_path)
+            shock_id = self._upload_dir_to_shock(destination_dir)
+        elif download_file_type == 'sam':
+            destination_dir = self.rau.download_alignment({'source_ref': input_ref,
+                                                           'downloadSAM': True,
+                                                           'downloadBAI': True})['destination_dir']
+            shock_id = self._upload_dir_to_shock(destination_dir)
 
         returnVal['shock_id'] = shock_id
 
@@ -212,6 +201,22 @@ class RNASeqDownloaderUtils:
 
         file_to_shock_params = {
             'file_path': file_path
+        }
+        shock_file = self.dfu.file_to_shock(file_to_shock_params)
+
+        shock_id = shock_file.get('shock_id')
+
+        return shock_id
+
+    def _upload_dir_to_shock(self, directory):
+        """
+        _upload_to_shock: upload target file to shock using DataFileUtil
+    
+        """
+
+        file_to_shock_params = {
+            'file_path': directory,
+            'pack': 'zip'
         }
         shock_file = self.dfu.file_to_shock(file_to_shock_params)
 

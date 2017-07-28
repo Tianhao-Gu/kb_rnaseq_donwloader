@@ -5,6 +5,7 @@ import json  # noqa: F401
 import time
 import requests
 import shutil
+import re
 
 from os import environ
 try:
@@ -150,7 +151,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         }
         del invalidate_input_params['input_ref']
         with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
-            self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), 
+            self.getImpl().export_rna_seq_alignment_as_sam(self.getContext(), 
                                                            invalidate_input_params)
 
         with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
@@ -219,6 +220,22 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         ret = self.getImpl().export_rna_seq_alignment_as_bam(self.getContext(), params)
         self.assertTrue('shock_id' in ret[0])
 
+        result_dir = os.path.join(self.scratch, 'bam_download_result')
+        os.makedirs(result_dir)
+
+        shock_to_file_params = {
+            'shock_id': ret[0]['shock_id'],
+            'file_path': result_dir,
+            'unpack': 'unpack'
+        }
+        shock_file = self.dfu.shock_to_file(shock_to_file_params)['file_path']
+
+        shock_file_dir = os.path.dirname(shock_file)
+        result_files = os.listdir(shock_file_dir)
+
+        self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
+        self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
+
         self.delete_shock_node(ret[0].get('shock_id'))
 
     def test_export_rna_seq_alignment_as_sam(self):
@@ -228,31 +245,21 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         ret = self.getImpl().export_rna_seq_alignment_as_sam(self.getContext(), params)
         self.assertTrue('shock_id' in ret[0])
 
-        self.delete_shock_node(ret[0].get('shock_id'))
+        result_dir = os.path.join(self.scratch, 'sam_download_result')
+        os.makedirs(result_dir)
 
-    def test_export_rna_seq_alignment_as_bai(self):
-        params = {
-            'input_ref': self.alignment_ref_1
+        shock_to_file_params = {
+            'shock_id': ret[0]['shock_id'],
+            'file_path': result_dir,
+            'unpack': 'unpack'
         }
-        ret = self.getImpl().export_rna_seq_alignment_as_bai(self.getContext(), params)
-        self.assertTrue('shock_id' in ret[0])
+        shock_file = self.dfu.shock_to_file(shock_to_file_params)['file_path']
+
+        shock_file_dir = os.path.dirname(shock_file)
+        result_files = os.listdir(shock_file_dir)
+
+        self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
+        self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
+        self.assertTrue(any(re.match('\d+_accepted_hits.sam', file) for file in result_files))
 
         self.delete_shock_node(ret[0].get('shock_id'))
-
-    # def test_export_rna_seq_expression_as_zip(self):
-    #     params = {
-    #         'input_ref': '15963/16/2'
-    #     }
-    #     ret = self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), params)
-    #     self.assertTrue(ret[0].has_key('shock_id'))
-
-    #     self.delete_shock_node(ret[0].get('shock_id'))
-
-    # def test_export_rna_seq_differential_expression_as_zip(self):
-    #     params = {
-    #         'input_ref': '15963/21/1'
-    #     }
-    #     ret = self.getImpl().export_rna_seq_alignment_as_zip(self.getContext(), params)
-    #     self.assertTrue(ret[0].has_key('shock_id'))
-
-    #     self.delete_shock_node(ret[0].get('shock_id'))

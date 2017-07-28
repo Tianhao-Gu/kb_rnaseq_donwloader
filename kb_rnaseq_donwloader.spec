@@ -16,8 +16,6 @@ module kb_rnaseq_donwloader {
 
     funcdef export_rna_seq_alignment_as_sam (ExportParams params) returns (ExportOutput output) authentication required;
 
-    funcdef export_rna_seq_alignment_as_bai (ExportParams params) returns (ExportOutput output) authentication required;
-
     funcdef export_rna_seq_expression_as_zip (ExportParams params) returns (ExportOutput output) authentication required;
 
     funcdef export_rna_seq_differential_expression_as_zip (ExportParams params) returns (ExportOutput output) authentication required;
