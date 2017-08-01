@@ -1,6 +1,7 @@
 import os
 import json
 import shutil
+import re
 
 from DataFileUtil.DataFileUtilClient import DataFileUtil
 from ReadsAlignmentUtils.ReadsAlignmentUtilsClient import ReadsAlignmentUtils
@@ -76,6 +77,11 @@ class RNASeqDownloaderUtils:
             destination_dir = self.rau.download_alignment({'source_ref': input_ref,
                                                            'downloadSAM': True,
                                                            'downloadBAI': True})['destination_dir']
+            files = os.listdir(destination_dir)
+            bam_files = [x for x in files if re.match('.*\.bam', x)]
+            for bam_file in bam_files:
+                log('removing file: {}'.format(bam_file))
+                os.remove(os.path.join(destination_dir, bam_file))
             shock_id = self._upload_dir_to_shock(destination_dir)
 
         returnVal['shock_id'] = shock_id

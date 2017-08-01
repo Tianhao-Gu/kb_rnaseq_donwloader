@@ -233,6 +233,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         shock_file_dir = os.path.dirname(shock_file)
         result_files = os.listdir(shock_file_dir)
 
+        print result_files
         self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
         self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
 
@@ -258,7 +259,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         shock_file_dir = os.path.dirname(shock_file)
         result_files = os.listdir(shock_file_dir)
 
-        self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
+        print result_files
         self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
         self.assertTrue(any(re.match('\d+_accepted_hits.sam', file) for file in result_files))
 
