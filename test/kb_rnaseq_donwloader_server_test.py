@@ -264,6 +264,3 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         self.assertTrue(any(re.match('\d+_accepted_hits.sam', file) for file in result_files))
 
         self.delete_shock_node(ret[0].get('shock_id'))
-
-    def test_fail(self):
-        self.assertTrue(False)
