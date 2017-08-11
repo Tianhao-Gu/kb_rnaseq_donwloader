@@ -23,7 +23,7 @@ class kb_rnaseq_donwloader:
     ######################################### noqa
     VERSION = "1.0.1"
     GIT_URL = "https://github.com/Tianhao-Gu/kb_rnaseq_donwloader.git"
-    GIT_COMMIT_HASH = "cbe96c34c147197868527b678f55e4b5db042c4c"
+    GIT_COMMIT_HASH = "d0af85955548c734e1c7dec8d497a6b330b575ba"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
