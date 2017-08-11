@@ -1,8 +1,8 @@
 Build status:
 
-master: [![Coverage Status](https://coveralls.io/repos/github/Tianhao-Gu/kb_rnaseq_donwloader/badge.svg?branch=master)](https://coveralls.io/github/[YOUR_GITHUB_NAME]/[YOUR_MODULE_NAME]?branch=master)
+master: [![Coverage Status](https://coveralls.io/repos/github/Tianhao-Gu/kb_rnaseq_donwloader/badge.svg?branch=master)](https://coveralls.io/github/Tianhao-Gu/[YOUR_MODULE_NAME]?branch=master)
 
-master:  [![Build Status](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader.svg?branch=master)](https://travis-ci.org/[YOUR_GITHUB_NAME]/[YOUR_MODULE_NAME])
+master:  [![Build Status](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader.svg?branch=master)](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader)
 
 
 [![Build Status](https://travis-ci.org/tgu2/kb_rnaseq_donwloader.svg?branch=master)](https://travis-ci.org/tgu2/kb_rnaseq_donwloader)
