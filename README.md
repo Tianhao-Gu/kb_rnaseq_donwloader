@@ -5,7 +5,7 @@ master: [![Coverage Status](https://coveralls.io/repos/github/Tianhao-Gu/kb_rnas
 master:  [![Build Status](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader.svg?branch=master)](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader)
 
 
-[![Build Status](https://travis-ci.org/tgu2/kb_rnaseq_donwloader.svg?branch=master)](https://travis-ci.org/tgu2/kb_rnaseq_donwloader)
+[![Build Status](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader.svg?branch=master)](https://travis-ci.org/Tianhao-Gu/kb_rnaseq_donwloader)
 
 # kb_rnaseq_donwloader
 ---
