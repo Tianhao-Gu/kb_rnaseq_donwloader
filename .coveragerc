@@ -1,0 +1,20 @@
+[run]
+branch = True
+
+omit =
+    /kb/module/lib/kb_rnaseq_donwloader/authclient.py
+    /kb/module/lib/kb_rnaseq_donwloader/baseclient.py
+    /kb/module/lib/kb_rnaseq_donwloader/kb_rnaseq_donwloaderClient.py
+    /kb/module/lib/kb_rnaseq_donwloader/kb_rnaseq_donwloaderServer.py
+source = /kb/module/lib/kb_rnaseq_donwloader
+
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+    # Don't complain if tests don't hit defensive assertion code:
+    raise NotImplementedError
+
+show_missing = 1
