@@ -95,7 +95,8 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         genome_object_name = 'test_Genome'
         cls.genome_ref = cls.gfu.genbank_to_genome({'file': {'path': genbank_file_path},
                                                     'workspace_name': cls.wsName,
-                                                    'genome_name': genome_object_name
+                                                    'genome_name': genome_object_name,
+                                                    'generate_missing_genes': 1
                                                     })['genome_ref']
 
         # upload reads object
@@ -235,7 +236,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
 
         print result_files
         self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
-        self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
+        self.assertTrue(any(re.match('accepted_hits.bai', file) for file in result_files))
 
         self.delete_shock_node(ret[0].get('shock_id'))
 
@@ -260,7 +261,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         result_files = os.listdir(shock_file_dir)
 
         print result_files
-        self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
-        self.assertTrue(any(re.match('\d+_accepted_hits.sam', file) for file in result_files))
+        self.assertTrue(any(re.match('accepted_hits.bai', file) for file in result_files))
+        self.assertTrue(any(re.match('accepted_hits.sam', file) for file in result_files))
 
         self.delete_shock_node(ret[0].get('shock_id'))
