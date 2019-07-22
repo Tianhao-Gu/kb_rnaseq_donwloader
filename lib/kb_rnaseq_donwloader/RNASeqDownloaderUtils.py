@@ -3,8 +3,9 @@ import json
 import shutil
 import re
 
-from DataFileUtil.DataFileUtilClient import DataFileUtil
-from ReadsAlignmentUtils.ReadsAlignmentUtilsClient import ReadsAlignmentUtils
+from installed_clients.DataFileUtilClient import DataFileUtil
+from installed_clients.ReadsAlignmentUtilsClient import ReadsAlignmentUtils
+
 
 def log(message):
     """Logging function, provides a hook to suppress or redirect log messages."""
@@ -20,28 +21,28 @@ class RNASeqDownloaderUtils:
         self.token = config['KB_AUTH_TOKEN']
         self.dfu = DataFileUtil(self.callback_url, token=self.token)
         self.rau = ReadsAlignmentUtils(self.callback_url, token=self.token)
-        
+
     def download_RNASeq(self, params):
         """
         download_RNASeq: download RNASeq Alignment/Expression/DifferentialExpression zip file
 
         params:
         input_ref: RNASeq object reference ID
-        rna_seq_type: one of ['RNASeqAlignment', 
-                              'RNASeqExpression', 
+        rna_seq_type: one of ['RNASeqAlignment',
+                              'RNASeqExpression',
                               'RNASeqDifferentialExpression']
 
         return:
         shock_id: Shock ID of stored zip file
-    
+
         """
         log('--->\nrunning RNASeqDownloaderUtils.download_RNASeq:\nparams: %s' % params)
 
-        # Validate params 
+        # Validate params
         self.validate_download_rna_seq_alignment_parameters(params)
 
         # Download RNASeq zip file
-        # RNASeq Alignemnt, Expression and DifferentialExpression 
+        # RNASeq Alignemnt, Expression and DifferentialExpression
         # has same object_data/handle_data structure
         returnVal = self._download_rna_seq_zip(params.get('input_ref'))
 
@@ -58,7 +59,7 @@ class RNASeqDownloaderUtils:
 
         return:
         shock_id: Shock ID of stored zip file
-    
+
         """
         log('--->\nrunning RNASeqDownloaderUtils.download_RNASeq_Alignment:\nparams: %s' % params)
 
@@ -90,19 +91,19 @@ class RNASeqDownloaderUtils:
 
     def validate_download_rna_seq_alignment_parameters(self, params):
         """
-        validate_download_rna_seq_alignment_parameters: 
+        validate_download_rna_seq_alignment_parameters:
                         validates params passed to download_rna_seq_alignment method
-    
+
         """
 
         # check required parameters
         for p in ['input_ref', 'rna_seq_type']:
             if p not in params:
-                raise ValueError('"' + p + '" parameter is required, but missing')  
+                raise ValueError('"' + p + '" parameter is required, but missing')
 
         # check supportive RNASeq types
-        valid_rnaseq_types = ['RNASeqAlignment', 
-                              'RNASeqExpression', 
+        valid_rnaseq_types = ['RNASeqAlignment',
+                              'RNASeqExpression',
                               'RNASeqDifferentialExpression']
         if params['rna_seq_type'] not in valid_rnaseq_types:
             raise ValueError('Unexpected RNASeq type: %s' % params['rna_seq_type'])
@@ -115,7 +116,7 @@ class RNASeqDownloaderUtils:
         shock_id: Shock ID of stored zip file
 
         """
-        
+
         # get object data
         object_data = self._get_object_data(input_ref)
         log('---> getting object data\n object_date: %s' % json.dumps(object_data, indent=1))
@@ -186,7 +187,7 @@ class RNASeqDownloaderUtils:
     def _download_original_zip_file(self, handle_id, dstdir):
         """
         _download_original_zip_file: download original archive .zip file using DataFileUtil
-        
+
         """
 
         shock_to_file_params = {
@@ -202,7 +203,7 @@ class RNASeqDownloaderUtils:
     def _upload_to_shock(self, file_path):
         """
         _upload_to_shock: upload target file to shock using DataFileUtil
-    
+
         """
 
         file_to_shock_params = {
@@ -217,7 +218,7 @@ class RNASeqDownloaderUtils:
     def _upload_dir_to_shock(self, directory):
         """
         _upload_to_shock: upload target file to shock using DataFileUtil
-    
+
         """
 
         file_to_shock_params = {

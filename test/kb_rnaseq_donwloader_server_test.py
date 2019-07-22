@@ -9,7 +9,7 @@ import re
 
 from os import environ
 try:
-    from ConfigParser import ConfigParser  # py2
+    from configparser import ConfigParser  # py2
 except:
     from configparser import ConfigParser  # py3
 
@@ -21,10 +21,10 @@ from kb_rnaseq_donwloader.kb_rnaseq_donwloaderImpl import kb_rnaseq_donwloader
 from kb_rnaseq_donwloader.kb_rnaseq_donwloaderServer import MethodContext
 from kb_rnaseq_donwloader.authclient import KBaseAuth as _KBaseAuth
 from kb_rnaseq_donwloader.RNASeqDownloaderUtils import RNASeqDownloaderUtils
-from GenomeFileUtil.GenomeFileUtilClient import GenomeFileUtil
-from ReadsUtils.ReadsUtilsClient import ReadsUtils
-from ReadsAlignmentUtils.ReadsAlignmentUtilsClient import ReadsAlignmentUtils
-from DataFileUtil.DataFileUtilClient import DataFileUtil
+from installed_clients.DataFileUtilClient import DataFileUtil
+from installed_clients.ReadsUtilsClient import ReadsUtils
+from installed_clients.GenomeFileUtilClient import GenomeFileUtil
+from installed_clients.ReadsAlignmentUtilsClient import ReadsAlignmentUtils
 
 
 class kb_rnaseq_donwloaderTest(unittest.TestCase):
@@ -38,6 +38,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         config.read(config_file)
         for nameval in config.items('kb_rnaseq_donwloader'):
             cls.cfg[nameval[0]] = nameval[1]
+
         # Getting username from Auth profile for token
         authServiceUrl = cls.cfg['auth-service-url']
         auth_client = _KBaseAuth(authServiceUrl)
@@ -83,7 +84,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         header = {'Authorization': 'Oauth {0}'.format(cls.token)}
         requests.delete(cls.shockURL + '/node/' + node_id, headers=header,
                         allow_redirects=True)
-        print('Deleted shock node ' + node_id)
+        print(('Deleted shock node ' + node_id))
 
     @classmethod
     def prepare_data(cls):
@@ -150,16 +151,16 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
             'input_ref': 'input_ref'
         }
         del invalidate_input_params['input_ref']
-        with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
-            self.getImpl().export_rna_seq_alignment_as_sam(self.getContext(), 
+        with self.assertRaisesRegex(ValueError, '"input_ref" parameter is required, but missing'):
+            self.getImpl().export_rna_seq_alignment_as_sam(self.getContext(),
                                                            invalidate_input_params)
 
-        with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
-            self.getImpl().export_rna_seq_expression_as_zip(self.getContext(), 
+        with self.assertRaisesRegex(ValueError, '"input_ref" parameter is required, but missing'):
+            self.getImpl().export_rna_seq_expression_as_zip(self.getContext(),
                                                             invalidate_input_params)
 
-        with self.assertRaisesRegexp(ValueError, '"input_ref" parameter is required, but missing'):
-            self.getImpl().export_rna_seq_differential_expression_as_zip(self.getContext(), 
+        with self.assertRaisesRegex(ValueError, '"input_ref" parameter is required, but missing'):
+            self.getImpl().export_rna_seq_differential_expression_as_zip(self.getContext(),
                                                                          invalidate_input_params)
 
     def test_RNASeqDownloaderUtils_contructor(self):
@@ -172,12 +173,12 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         invalidate_input_params = {
             'input_ref': 'input_ref'
         }
-        with self.assertRaisesRegexp(ValueError, 
+        with self.assertRaisesRegex(ValueError,
                                      '"rna_seq_type" parameter is required, but missing'):
             self.rna_downloader.download_RNASeq(invalidate_input_params)
 
         invalidate_input_params['rna_seq_type'] = 'FACKE TYPE'
-        with self.assertRaisesRegexp(ValueError, 'Unexpected RNASeq type: FACKE TYPE'):
+        with self.assertRaisesRegex(ValueError, 'Unexpected RNASeq type: FACKE TYPE'):
             self.rna_downloader.download_RNASeq(invalidate_input_params)
 
     def test_bad_ojbect_data(self):
@@ -189,28 +190,28 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
 
         wrong_ojbect_data_format = {"data": [{"info": [], "wrong_data":{}}]}
 
-        with patch.object(RNASeqDownloaderUtils, 
-                          '_get_object_data', 
+        with patch.object(RNASeqDownloaderUtils,
+                          '_get_object_data',
                           return_value=wrong_ojbect_data_format):
             error_msg = 'Unexpected object format. Refer to DataFileUtil.get_objects definition'
-            with self.assertRaisesRegexp(ValueError, error_msg):
+            with self.assertRaisesRegex(ValueError, error_msg):
                 self.rna_downloader.download_RNASeq(params)
 
-        missing_file_key = {"data": [{"info": [], 
+        missing_file_key = {"data": [{"info": [],
                                       "data": {'missing_file_key': {'hid': 'KBH_9387'}}}]}
-        with patch.object(RNASeqDownloaderUtils, 
-                          '_get_object_data', 
+        with patch.object(RNASeqDownloaderUtils,
+                          '_get_object_data',
                           return_value=missing_file_key):
             error_msg = 'object_data does NOT have Handle\(file key\)\nobject_data:'
-            with self.assertRaisesRegexp(ValueError, error_msg):
+            with self.assertRaisesRegex(ValueError, error_msg):
                 self.rna_downloader.download_RNASeq(params)
 
         missing_handle_id = {"data": [{"info": [], "data": {'file': {'missing_hid': 'KBH_9387'}}}]}
-        with patch.object(RNASeqDownloaderUtils, 
-                          '_get_object_data', 
+        with patch.object(RNASeqDownloaderUtils,
+                          '_get_object_data',
                           return_value=missing_handle_id):
             error_msg = 'Handle does have NOT HandleId\(hid key\)\nhandle_data:'
-            with self.assertRaisesRegexp(ValueError, error_msg):
+            with self.assertRaisesRegex(ValueError, error_msg):
                 self.rna_downloader.download_RNASeq(params)
 
     def test_export_rna_seq_alignment_as_bam(self):
@@ -233,7 +234,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         shock_file_dir = os.path.dirname(shock_file)
         result_files = os.listdir(shock_file_dir)
 
-        print result_files
+        print(result_files)
         self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
         self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
 
@@ -259,7 +260,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         shock_file_dir = os.path.dirname(shock_file)
         result_files = os.listdir(shock_file_dir)
 
-        print result_files
+        print(result_files)
         self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
         self.assertTrue(any(re.match('\d+_accepted_hits.sam', file) for file in result_files))
 
