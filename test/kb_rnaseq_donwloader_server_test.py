@@ -8,10 +8,7 @@ import shutil
 import re
 
 from os import environ
-try:
-    from configparser import ConfigParser  # py2
-except:
-    from configparser import ConfigParser  # py3
+from configparser import ConfigParser
 
 from pprint import pprint  # noqa: F401
 from mock import patch
@@ -174,7 +171,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
             'input_ref': 'input_ref'
         }
         with self.assertRaisesRegex(ValueError,
-                                     '"rna_seq_type" parameter is required, but missing'):
+                                    '"rna_seq_type" parameter is required, but missing'):
             self.rna_downloader.download_RNASeq(invalidate_input_params)
 
         invalidate_input_params['rna_seq_type'] = 'FACKE TYPE'
@@ -236,7 +233,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
 
         print(result_files)
         self.assertTrue(any(re.match('accepted_hits.bam', file) for file in result_files))
-        self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
+        self.assertTrue(any(re.match('accepted_hits.bai', file) for file in result_files))
 
         self.delete_shock_node(ret[0].get('shock_id'))
 
@@ -261,7 +258,7 @@ class kb_rnaseq_donwloaderTest(unittest.TestCase):
         result_files = os.listdir(shock_file_dir)
 
         print(result_files)
-        self.assertTrue(any(re.match('\d+_accepted_hits.bai', file) for file in result_files))
-        self.assertTrue(any(re.match('\d+_accepted_hits.sam', file) for file in result_files))
+        self.assertTrue(any(re.match('accepted_hits.bai', file) for file in result_files))
+        self.assertTrue(any(re.match('accepted_hits.sam', file) for file in result_files))
 
         self.delete_shock_node(ret[0].get('shock_id'))
