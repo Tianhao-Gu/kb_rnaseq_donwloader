@@ -21,9 +21,9 @@ class kb_rnaseq_donwloader:
     # state. A method could easily clobber the state set by another while
     # the latter method is running.
     ######################################### noqa
-    VERSION = "1.0.1"
+    VERSION = "1.0.2"
     GIT_URL = "https://github.com/Tianhao-Gu/kb_rnaseq_donwloader.git"
-    GIT_COMMIT_HASH = "d0af85955548c734e1c7dec8d497a6b330b575ba"
+    GIT_COMMIT_HASH = "e956b8ec8c4c9e6ccebc06777de8f2e98877c61a"
 
     #BEGIN_CLASS_HEADER
     #END_CLASS_HEADER
@@ -50,10 +50,10 @@ class kb_rnaseq_donwloader:
         # ctx is the context object
         # return variables are: output
         #BEGIN export_rna_seq_alignment_as_bam
-        print '--->\nRunning kb_rnaseq_downloader.export_rna_seq_alignment_as_zip\nparams:'
+        print('--->\nRunning kb_rnaseq_downloader.export_rna_seq_alignment_as_zip\nparams:')
         params['rna_seq_type'] = 'RNASeqAlignment'
         params['download_file_type'] = 'bam'
-        print json.dumps(params, indent=1)
+        print(json.dumps(params, indent=1))
 
         rna_seq_downloader = RNASeqDownloaderUtils(self.config)
         output = rna_seq_downloader.download_RNASeq_Alignment(params)
@@ -77,10 +77,10 @@ class kb_rnaseq_donwloader:
         # ctx is the context object
         # return variables are: output
         #BEGIN export_rna_seq_alignment_as_sam
-        print '--->\nRunning kb_rnaseq_downloader.export_rna_seq_alignment_as_zip\nparams:'
+        print('--->\nRunning kb_rnaseq_downloader.export_rna_seq_alignment_as_zip\nparams:')
         params['rna_seq_type'] = 'RNASeqAlignment'
         params['download_file_type'] = 'sam'
-        print json.dumps(params, indent=1)
+        print(json.dumps(params, indent=1))
 
         rna_seq_downloader = RNASeqDownloaderUtils(self.config)
         output = rna_seq_downloader.download_RNASeq_Alignment(params)
@@ -104,9 +104,9 @@ class kb_rnaseq_donwloader:
         # ctx is the context object
         # return variables are: output
         #BEGIN export_rna_seq_expression_as_zip
-        print '--->\nRunning kb_rnaseq_downloader.export_rna_seq_expression_as_zip\nparams:'
+        print('--->\nRunning kb_rnaseq_downloader.export_rna_seq_expression_as_zip\nparams:')
         params['rna_seq_type'] = 'RNASeqExpression'
-        print json.dumps(params, indent=1)
+        print(json.dumps(params, indent=1))
 
         rna_seq_downloader = RNASeqDownloaderUtils(self.config)
         output = rna_seq_downloader.download_RNASeq(params)
@@ -130,9 +130,9 @@ class kb_rnaseq_donwloader:
         # ctx is the context object
         # return variables are: output
         #BEGIN export_rna_seq_differential_expression_as_zip
-        print '--->\nRunning kb_rnaseq_downloader.export_rna_seq_differential_expression_as_zip\nparams:'
+        print('--->\nRunning kb_rnaseq_downloader.export_rna_seq_differential_expression_as_zip\nparams:')
         params['rna_seq_type'] = 'RNASeqDifferentialExpression'
-        print json.dumps(params, indent=1)
+        print(json.dumps(params, indent=1))
 
         rna_seq_downloader = RNASeqDownloaderUtils(self.config)
         output = rna_seq_downloader.download_RNASeq(params)
